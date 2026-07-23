@@ -1,5 +1,6 @@
 pub mod daily_plan;
 pub mod id;
+pub mod session;
 pub mod settings;
 pub mod study_task;
 pub mod subject;

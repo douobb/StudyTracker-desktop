@@ -18,6 +18,7 @@ use crate::{
 };
 
 mod daily_plans;
+mod sessions;
 
 pub const DATABASE_SCHEMA_VERSION: u32 = 1;
 const FOUNDATION_MIGRATION: &str = include_str!("../../../migrations/0001_foundation.sql");

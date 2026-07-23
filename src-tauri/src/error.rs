@@ -31,6 +31,18 @@ pub enum AppError {
     DailyPlanItemNotFound,
     #[error("每日計畫項目的科目與任務不一致")]
     DailyPlanReferenceMismatch,
+    #[error("工作階段資料無效：{0}")]
+    InvalidSession(&'static str),
+    #[error("找不到指定工作階段")]
+    SessionNotFound,
+    #[error("已有進行中的工作階段")]
+    ActiveSessionExists,
+    #[error("工作階段時間與既有紀錄重疊")]
+    SessionOverlap,
+    #[error("目前狀態不允許此工作階段操作")]
+    InvalidSessionTransition,
+    #[error("工作階段的科目、任務或計畫項目不一致")]
+    SessionReferenceMismatch,
     #[error("資料庫版本 {found} 高於應用程式支援版本 {supported}")]
     UnknownDatabaseVersion { found: u32, supported: u32 },
     #[error("背景服務已在執行")]
@@ -82,6 +94,22 @@ impl From<AppError> for IpcError {
             AppError::DailyPlanReferenceMismatch => (
                 "DAILY_PLAN_REFERENCE_MISMATCH",
                 "每日計畫項目的科目與任務不一致。",
+                false,
+            ),
+            AppError::InvalidSession(_) => ("INVALID_SESSION", "工作階段資料無效。", false),
+            AppError::SessionNotFound => ("SESSION_NOT_FOUND", "找不到指定工作階段。", false),
+            AppError::ActiveSessionExists => {
+                ("ACTIVE_SESSION_EXISTS", "已有進行中的工作階段。", false)
+            }
+            AppError::SessionOverlap => ("SESSION_OVERLAP", "工作階段時間與既有紀錄重疊。", false),
+            AppError::InvalidSessionTransition => (
+                "INVALID_SESSION_TRANSITION",
+                "目前狀態不允許此工作階段操作。",
+                false,
+            ),
+            AppError::SessionReferenceMismatch => (
+                "SESSION_REFERENCE_MISMATCH",
+                "工作階段的科目、任務或計畫項目不一致。",
                 false,
             ),
             AppError::UnknownDatabaseVersion { .. } => (

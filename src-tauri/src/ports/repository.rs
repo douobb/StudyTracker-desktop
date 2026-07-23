@@ -4,6 +4,7 @@ use uuid::Uuid;
 use crate::{
     domain::{
         daily_plan::{DailyPlan, DailyPlanItem},
+        session::Session,
         settings::AppSettings,
         study_task::StudyTask,
         subject::Subject,
@@ -45,6 +46,17 @@ pub trait DailyPlanRepository: Send + Sync {
     fn get_item(&self, id: Uuid) -> AppResult<Option<DailyPlanItem>>;
     fn list_items(&self, daily_plan_id: Uuid) -> AppResult<Vec<DailyPlanItem>>;
     fn update_item(&self, item: &DailyPlanItem, expected_revision: u64) -> AppResult<()>;
+}
+
+pub trait SessionRepository: Send + Sync {
+    fn create(
+        &self,
+        session: &Session,
+        started_item: Option<(&DailyPlanItem, u64)>,
+    ) -> AppResult<()>;
+    fn get(&self, id: Uuid) -> AppResult<Option<Session>>;
+    fn get_active(&self) -> AppResult<Option<Session>>;
+    fn save(&self, session: &Session, expected_revision: u64) -> AppResult<()>;
 }
 
 pub trait UnitOfWork: Send + Sync {
