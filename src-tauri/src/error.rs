@@ -9,6 +9,28 @@ pub enum AppError {
     Serialization,
     #[error("設定值無效：{0}")]
     InvalidSetting(&'static str),
+    #[error("科目資料無效：{0}")]
+    InvalidSubject(&'static str),
+    #[error("找不到指定科目")]
+    SubjectNotFound,
+    #[error("科目已封存，不能建立新的學習工作")]
+    SubjectArchived,
+    #[error("資料已由其他操作更新")]
+    RevisionConflict,
+    #[error("任務資料無效：{0}")]
+    InvalidTask(&'static str),
+    #[error("找不到指定任務")]
+    TaskNotFound,
+    #[error("任務已封存")]
+    TaskArchived,
+    #[error("每日計畫資料無效：{0}")]
+    InvalidDailyPlan(&'static str),
+    #[error("找不到指定每日計畫")]
+    DailyPlanNotFound,
+    #[error("找不到指定每日計畫項目")]
+    DailyPlanItemNotFound,
+    #[error("每日計畫項目的科目與任務不一致")]
+    DailyPlanReferenceMismatch,
     #[error("資料庫版本 {found} 高於應用程式支援版本 {supported}")]
     UnknownDatabaseVersion { found: u32, supported: u32 },
     #[error("背景服務已在執行")]
@@ -37,6 +59,31 @@ impl From<AppError> for IpcError {
             AppError::Database => ("DATABASE_ERROR", "本機資料操作失敗。", true),
             AppError::Serialization => ("INVALID_DATA", "本機資料格式無效。", false),
             AppError::InvalidSetting(_) => ("INVALID_SETTING", "設定值不在允許範圍內。", false),
+            AppError::InvalidSubject(_) => ("INVALID_SUBJECT", "科目資料無效。", false),
+            AppError::SubjectNotFound => ("SUBJECT_NOT_FOUND", "找不到指定科目。", false),
+            AppError::SubjectArchived => (
+                "SUBJECT_ARCHIVED",
+                "已封存的科目不能建立新的學習工作。",
+                false,
+            ),
+            AppError::RevisionConflict => {
+                ("REVISION_CONFLICT", "資料已更新，請重新載入後再試。", true)
+            }
+            AppError::InvalidTask(_) => ("INVALID_TASK", "任務資料無效。", false),
+            AppError::TaskNotFound => ("TASK_NOT_FOUND", "找不到指定任務。", false),
+            AppError::TaskArchived => ("TASK_ARCHIVED", "已封存的任務無法執行此操作。", false),
+            AppError::InvalidDailyPlan(_) => ("INVALID_DAILY_PLAN", "每日計畫資料無效。", false),
+            AppError::DailyPlanNotFound => ("DAILY_PLAN_NOT_FOUND", "找不到指定每日計畫。", false),
+            AppError::DailyPlanItemNotFound => (
+                "DAILY_PLAN_ITEM_NOT_FOUND",
+                "找不到指定每日計畫項目。",
+                false,
+            ),
+            AppError::DailyPlanReferenceMismatch => (
+                "DAILY_PLAN_REFERENCE_MISMATCH",
+                "每日計畫項目的科目與任務不一致。",
+                false,
+            ),
             AppError::UnknownDatabaseVersion { .. } => (
                 "UNSUPPORTED_DATABASE_VERSION",
                 "資料庫版本高於目前應用程式可支援的版本。",
