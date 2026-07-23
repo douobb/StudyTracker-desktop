@@ -1,0 +1,43 @@
+# 本機專案規劃
+TODO.md
+docs/PRD.md
+docs/private/
+
+# 環境變數與本機機密
+.env
+.env.*
+!.env.example
+
+# 作業系統中繼資料
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 編輯器暫存檔
+*.swp
+*.swo
+*~
+*.tmp
+*.temp
+
+# 日誌
+*.log
+
+# 本機設計與測試產物
+design-system/
+artifacts/
+
+# Tauri 自動產生的 IDE schema
+src-tauri/gen/schemas/
+
+# 本機資料庫
+*.sqlite
+*.sqlite3
+
+# 套件與編譯輸出
+node_modules/
+dist/
+build/
+coverage/
+.cache/
+src-tauri/target/

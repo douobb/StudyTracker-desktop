@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-capability",
+  "description": "主視窗僅取得核心 IPC 所需的最低權限。",
+  "windows": ["main"],
+  "permissions": ["core:default"]
+}

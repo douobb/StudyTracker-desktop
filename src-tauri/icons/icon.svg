@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">StudyTracker 專注標記</title>
+  <defs>
+    <linearGradient id="background" x1="72" y1="56" x2="440" y2="456" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3B82F6"/>
+      <stop offset="1" stop-color="#1D4ED8"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#background)"/>
+  <circle cx="256" cy="256" r="132" fill="none" stroke="#DBEAFE" stroke-width="36"/>
+  <circle cx="256" cy="256" r="62" fill="#F8FAFC"/>
+  <path d="M256 82v52M256 378v52M82 256h52M378 256h52" stroke="#F8FAFC" stroke-width="28" stroke-linecap="round"/>
+  <path d="m232 255 18 18 42-48" fill="none" stroke="#1D4ED8" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
